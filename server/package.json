@@ -1,0 +1,19 @@
+{
+  "name": "jaraxxus_server",
+  "version": "0.0.1",
+  "description": "Backend for Jaraxxus",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fizzlebang/Jaraxxus.git"
+  },
+  "author": "Ivan Ching",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Fizzlebang/Jaraxxus/issues"
+  },
+  "homepage": "https://github.com/Fizzlebang/Jaraxxus#readme"
+}
