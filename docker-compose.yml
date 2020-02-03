@@ -1,0 +1,31 @@
+version: "3.7"
+
+x-common-variables: &common-variables
+  MONGO_INITDB_ROOT_USERNAME: mongo
+  MONGO_INITDB_ROOT_PASSWORD: password
+  MONGO_INITDB_DATABASE: db
+
+volumes:
+  mongo_sandbox_data:
+  mongo_development_data:
+
+services:
+  db:
+    # MongoDB
+    image: mongo:latest
+    volumes:
+      - ./database/mongo-init/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - "mongo_sandbox_data:/var/lib/mongodb/data"
+    networks:
+      mongo_net:
+        ipv4_address: 172.16.0.3
+    ports:
+      - 27017:27017
+    environment: *common-variables
+
+networks:
+  mongo_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/24
