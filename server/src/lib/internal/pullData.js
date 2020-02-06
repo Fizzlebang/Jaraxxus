@@ -19,15 +19,15 @@ function getTwitchData(url) {
  * returns a request object of a twitch VOD's metadata based on the passed VOD id
  * @param {String} id
  */
-exports.getVODMeta = function(vodID) {
+export function getVODMeta(vodID) {
   return getTwitchData(`https://api.twitch.tv/kraken/videos/${vodID}`);
-};
+}
 
 /**
  * returns a request object of a twitch VOD's chat log based on the passed VOD id
  *
  * @param {String} id
  */
-exports.getVODChat = function(vodID) {
+export function getVODChat(vodID) {
   return getTwitchData(`https://api.twitch.tv/kraken/videos/${vodID}/comments`);
-};
+}
