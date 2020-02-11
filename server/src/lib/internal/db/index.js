@@ -17,17 +17,26 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export async function connectDatabase(n = 3) {
+/**
+ * Connects to the database
+ * @function connectDatabase
+ * @param {number} retries - Number of retries left
+ */
+export async function connectDatabase(retries = 3) {
   try {
     const connected = await client.connect();
     db = connected;
   } catch (err) {
-    if (n == 0) throw err;
+    if (retries == 0) throw err;
     await sleep(5000);
-    await connectDatabase(n - 1);
+    await connectDatabase(retries - 1);
   }
 }
 
+/**
+ * Gets a database connection instance
+ * @function getDatabase
+ */
 export async function getDatabase() {
   if (!db) {
     await connectDatabase();
@@ -35,6 +44,10 @@ export async function getDatabase() {
   return db.db(DB_NAME);
 }
 
+/**
+ * Closes the database connection instance
+ * @function closeDatabase
+ */
 export async function closeDatabase() {
   db.close();
 }
