@@ -33,3 +33,12 @@ export function getVODMeta(vodID) {
 export function getVODChat(vodID) {
   return getTwitchData(`https://api.twitch.tv/kraken/videos/${vodID}/comments`);
 }
+
+/**
+ * returns a promise of a twitch channels metadata based on the login name of the owner.
+ *
+ * @param {String} login Login name of the owner of the channel
+ */
+export function getChannelMeta(login) {
+  return getTwitchData(`https://api.twitch.tv/helix/users?login=${login}`);
+}
