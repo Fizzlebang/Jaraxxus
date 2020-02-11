@@ -1,10 +1,12 @@
 const request = require('request');
+const util = require('util');
 
 /**
- * returns a request object of a twitch api call based on the passed url
+ * returns a promise of a twitch api call based on the passed url
  * @param {String} id
  */
 function getTwitchData(url) {
+  const get = util.promisify(request.get);
   const options = {
     url,
     headers: {
@@ -12,11 +14,11 @@ function getTwitchData(url) {
       Accept: 'application/vnd.twitchtv.v5+json'
     }
   };
-  return request.get(options);
+  return get(options);
 }
 
 /**
- * returns a request object of a twitch VOD's metadata based on the passed VOD id
+ * returns a promise of a twitch VOD's metadata based on the passed VOD id
  * @param {String} id
  */
 export function getVODMeta(vodID) {
@@ -24,7 +26,7 @@ export function getVODMeta(vodID) {
 }
 
 /**
- * returns a request object of a twitch VOD's chat log based on the passed VOD id
+ * returns a promise of a twitch VOD's chat log based on the passed VOD id
  *
  * @param {String} id
  */
