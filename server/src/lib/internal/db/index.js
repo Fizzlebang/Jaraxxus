@@ -1,3 +1,8 @@
+/**
+ * @file Defines a connection to the Mongo database,
+ * using environment variables for connection information
+ */
+
 import { MongoClient } from 'mongodb';
 
 const {
