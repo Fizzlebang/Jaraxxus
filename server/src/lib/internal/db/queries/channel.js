@@ -2,7 +2,6 @@
  * @file Defines queries for channels
  */
 import { getDatabase } from '..';
-import { Collection } from 'mongodb';
 
 /**
  * Creates a channel
@@ -36,7 +35,7 @@ export async function getChannelById(id) {
   const channel = await channels.findOne({ id: id });
 
   if (!channel) {
-    return null;
+    throw Error('Channel not found');
   }
   return channel;
 }
@@ -53,7 +52,7 @@ export async function getChannelByName(name) {
   const channel = await channels.findOne({ name: name });
 
   if (!channel) {
-    return null;
+    throw Error('Channel not found');
   }
   return channel;
 }
@@ -68,7 +67,7 @@ export async function updateChannelNameById(id) {
   const channels = await db.collection('channel');
   const update = await channels.updateOne({ id: id }, { $set: { name: name } });
   if (update.matchedCount == 0) {
-    throw Error('Item not found');
+    throw Error('Channel not found');
   }
 }
 
