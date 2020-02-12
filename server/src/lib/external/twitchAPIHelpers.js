@@ -1,37 +1,43 @@
-const request = require('request');
-const util = require('util');
+const axios = require('axios').default;
 
 /**
- * returns a promise of a twitch api call based on the passed url
- * @param {String} id
+ * axios objects configured to get data from the helix and kraken iterations of the twitch API
+ * respectively.
  */
-function getTwitchData(url) {
-  const get = util.promisify(request.get);
-  const options = {
-    url,
+const helix = () => {
+  return axios.create({
+    baseURL: 'https://api.twitch.tv/helix/',
+    headers: {
+      'Client-ID': process.env.TWITCH_CLIENT_ID
+    }
+  });
+};
+
+const kraken = () => {
+  return axios.create({
+    baseURL: 'https://api.twitch.tv/kraken/',
     headers: {
       'Client-ID': process.env.TWITCH_CLIENT_ID,
       Accept: 'application/vnd.twitchtv.v5+json'
     }
-  };
-  return get(options);
-}
+  });
+};
 
 /**
  * returns a promise of a twitch VOD's metadata based on the passed VOD id
  * @param {String} id
  */
-export function getVODMeta(vodID) {
-  return getTwitchData(`https://api.twitch.tv/kraken/videos/${vodID}`);
+export async function getVODMeta(vodID) {
+  return helix().get(`videos?id=${vodID}`);
 }
 
 /**
- * returns a promise of a twitch VOD's chat log based on the passed VOD id
- *
+ * returns a promise of a twitch VOD's chat log based on the passed VOD id using the older Kraken
+ * iteration of the Twitch API due to lack of support from newer iterations.
  * @param {String} id
  */
-export function getVODChat(vodID) {
-  return getTwitchData(`https://api.twitch.tv/kraken/videos/${vodID}/comments`);
+export async function getVODChat(vodID) {
+  return kraken().get(`videos/${vodID}/comments`);
 }
 
 /**
@@ -39,6 +45,6 @@ export function getVODChat(vodID) {
  *
  * @param {String} login Login name of the owner of the channel
  */
-export function getChannelMeta(login) {
-  return getTwitchData(`https://api.twitch.tv/helix/users?login=${login}`);
+export async function getChannelMeta(login) {
+  return helix().get(`users?login=${login}`);
 }
