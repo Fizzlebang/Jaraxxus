@@ -6,4 +6,16 @@ import {
   deleteChannel
 } from './channel';
 
-export { createChannel, getChannelById, getChannelByName, updateChannelNameById, deleteChannel };
+import { createStream, getStreamById, deleteStream, updateAnalytics } from './stream';
+
+export {
+  createChannel,
+  getChannelById,
+  getChannelByName,
+  updateChannelNameById,
+  deleteChannel,
+  createStream,
+  getStreamById,
+  deleteStream,
+  updateAnalytics
+};
