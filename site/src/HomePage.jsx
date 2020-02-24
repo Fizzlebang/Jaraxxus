@@ -1,8 +1,8 @@
+
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function HomePage() {
   return (
     <div className="App">
       <header className="App-header">
@@ -13,13 +13,13 @@ function App() {
           A webapp for analyzing live-streams.
         </p>
         <p>
-          Status: WIP  
-          </p>
-          <a href="https://github.com/Fizzlebang/Jaraxxus">Source code</a>
-        
+          Status: WIP
+        </p>
+        <a href="https://github.com/Fizzlebang/Jaraxxus">Source code</a>
+
       </header>
     </div>
   );
 }
 
-export default App;
+export default HomePage;
