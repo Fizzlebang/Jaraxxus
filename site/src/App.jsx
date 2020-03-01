@@ -1,14 +1,23 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Theme from './Theme';
 import HomePage from './HomePage';
-import './App.css';
+import BackgroundImg from './assets/twitchBackground.png';
+import Background from './components/Background';
 
 function App() {
   return (
     <BrowserRouter>
-      <Route>
-        <HomePage />
-      </Route>
+      <ThemeProvider theme={Theme}>
+        
+        <CssBaseline />
+        <Background src={BackgroundImg}/>
+        <Route>
+          <HomePage />
+        </Route>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
